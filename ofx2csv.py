@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+from __future__ import print_function
 import sys
 import os
 from csv import DictWriter
@@ -9,7 +9,7 @@ DATE_FORMAT = "%m/%d/%Y"
 
 
 def write_csv(statement, out_file):
-    print "Writing: " + out_file
+    print ("Writing: " + out_file)
     fields = ['date', 'payee', 'debit', 'credit', 'balance']
     with open(out_file, 'w') as f:
         writer = DictWriter(f, fieldnames=fields)
@@ -44,7 +44,7 @@ def get_transactions(ofx):
 def main(inputfiles):
     if len(inputfiles) > 0:
         for ofx_file in inputfiles:
-            print 'Processing file: ', ofx_file
+            print ('Processing file: ', ofx_file)
             try:
                 fname, fext = os.path.splitext(ofx_file)
                 if fext not in ['.qfx', '.qbo', '.ofx']:
@@ -55,11 +55,11 @@ def main(inputfiles):
                 out_file = fname + ".csv"
                 write_csv(trans, out_file)
             except IOError:
-                print 'Error cannot open ', ofx_file
+                print ('Error cannot open ', ofx_file)
             except:
-                print 'Error converting files:', sys.exc_info()[0]
+                print ('Error converting files:', sys.exc_info()[0])
     else:
-        print 'ofx2csv.py <input-ofx-file> ...'
+        print ('ofx2csv.py <input-ofx-file> ...')
 
 
 if __name__ == "__main__":
